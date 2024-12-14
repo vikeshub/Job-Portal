@@ -1,6 +1,9 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import getDatauri from "../utils/datauri.js";
+import Cloudinary from "../utils/cloudinary.js";
+import getDataUri from "../utils/datauri.js";
 
 export const register = async (req, res) => {
   try {
@@ -11,6 +14,11 @@ export const register = async (req, res) => {
         success: false,
       });
     }
+
+    //Cloudinary setup
+    const file = req.file;
+    const fileUri = getDataUri(file);
+    const cloudResponse = await Cloudinary.uploader.upload(fileUri.content);
 
     // Check for valid role
     if (!["student", "recruiter"].includes(role)) {
@@ -35,6 +43,9 @@ export const register = async (req, res) => {
       phoneNumber,
       password: hashedPassword,
       role,
+      profile: {
+        profilePhoto: cloudResponse.secure_url,
+      },
     });
 
     return res.status(201).json({
@@ -133,6 +144,12 @@ export const updateProfile = async (req, res) => {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
     const userId = req.id; // Populated by middleware
 
+    const file = req.file;
+
+    // cloudniary setup idhar kiye hai
+    const fileUri = getDatauri(file);
+    const cloudResponse = await Cloudinary.uploader.upload(fileUri.content);
+
     if (!fullname || !email || !phoneNumber || !bio || !skills) {
       return res.status(400).json({
         message: "Required fields are missing.",
@@ -163,6 +180,10 @@ export const updateProfile = async (req, res) => {
     if (skills) user.profile.skills = skillsArray;
 
     // File handling logic (e.g., Cloudinary) can be added here
+    if (cloudResponse) {
+      user.profile.resume = cloudResponse.secure_url; //save the url
+      user.profile.resumeOriginalName = file.originalname; //save the original file name
+    }
 
     await user.save();
 

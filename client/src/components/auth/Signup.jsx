@@ -12,6 +12,10 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { USER_API_ENDPOINTS } from "@/utils/constants";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import store from "@/redux/store";
+import { setLoading } from "@/redux/authSlice";
+import { Loader2 } from "lucide-react";
 
 const Signup = () => {
   const [input, setInput] = useState({
@@ -29,6 +33,9 @@ const Signup = () => {
     setInput({ ...input, file: e.target.files?.[0] });
   };
   const navigate = useNavigate();
+  const { loading } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
+
   const submitHandler = async (e) => {
     e.preventDefault();
     // console.log(input);
@@ -43,6 +50,7 @@ const Signup = () => {
       formData.append("file", input.file);
     }
     try {
+      dispatch(setLoading(true));
       const res = await axios.post(`${USER_API_ENDPOINTS}/register`, formData, {
         headers: {
           "Content-Type": "multiple/form-data",
@@ -56,6 +64,8 @@ const Signup = () => {
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
@@ -148,9 +158,16 @@ const Signup = () => {
             ></Input>
           </div>
 
-          <Button type="submit" className="w-full my-2">
-            Signup
-          </Button>
+          {loading ? (
+            <Button className="w-full my-2">
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Please Wait Loading...
+            </Button>
+          ) : (
+            <Button type="submit" className="w-full my-2">
+              Signup
+            </Button>
+          )}
           <div>
             <span className="text-sm">
               Already have an account ?{" "}
