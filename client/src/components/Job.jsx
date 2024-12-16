@@ -34,7 +34,7 @@ const Job = ({ job }) => {
           <Avatar>
             <AvatarImage
               className=" w-8"
-              src={job?.company?.logo}
+              src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
             ></AvatarImage>
           </Avatar>
         </Button>
