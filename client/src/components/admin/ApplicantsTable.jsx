@@ -11,7 +11,6 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { MoreVertical } from "lucide-react";
 import { useSelector } from "react-redux";
-import store from "@/redux/store";
 import { toast } from "sonner";
 import axios from "axios";
 import { APPLICATION_API_END_POINT } from "@/utils/constants";

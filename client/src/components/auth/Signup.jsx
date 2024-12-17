@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../ui/shared/Navbar";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
@@ -33,7 +33,7 @@ const Signup = () => {
     setInput({ ...input, file: e.target.files?.[0] });
   };
   const navigate = useNavigate();
-  const { loading } = useSelector((store) => store.auth);
+  const { loading,user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
 
   const submitHandler = async (e) => {
@@ -68,6 +68,11 @@ const Signup = () => {
       dispatch(setLoading(false));
     }
   };
+    useEffect(() => {
+      if (user) {
+        navigate("/");
+      }
+    }, []);
 
   return (
     <div>
