@@ -34,7 +34,7 @@ app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);
 app.use("/api/v1/application", applicationRoute);
 
-app.use(express.static(path.join(_dirname, "/client/dist")));
+app.use(express.static(path.join(_dirname, "client", "dist")));
 app.get("*", (_, res) => {
   res.sendFile(path.resolve(_dirname, "client", "dist", "index.html"));
 });
