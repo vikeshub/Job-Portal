@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import exp from "constants";
 
 const jobSlice = createSlice({
   name: "job",
