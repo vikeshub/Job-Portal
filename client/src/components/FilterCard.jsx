@@ -35,7 +35,6 @@ const FilterCard = () => {
   useEffect(() => {
     dispatch(setSearchedQuery(selectedValue))
 
-    console.log(selectedValue);
   }, [selectedValue]);
 
   return (

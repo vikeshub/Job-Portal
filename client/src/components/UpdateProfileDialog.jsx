@@ -87,7 +87,6 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
 
     setOpen(false);
 
-    console.log(input.file);
   };
 
   return (
