@@ -88,6 +88,8 @@ export const login = async (req, res) => {
       });
     }
 
+    console.log("User Role: ", user.role);  // Log user role for debugging
+    console.log("Requested Role: ", role);
     if (role !== user.role) {
       return res.status(403).json({
         message: "Access denied for this role.",
@@ -99,6 +101,10 @@ export const login = async (req, res) => {
     const token = jwt.sign(tokenData, process.env.SECRET_KEY, {
       expiresIn: "1d",
     });
+    if (!process.env.SECRET_KEY) {
+      console.error("JWT Secret Key is not set.");
+    }
+    
 
     return res
       .status(200)
