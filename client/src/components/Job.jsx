@@ -1,9 +1,10 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { BookMarked } from "lucide-react";
-import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
+import { } from "@radix-ui/react-avatar";
 import { Badge } from "./ui/badge";
 import { useNavigate } from "react-router-dom";
+import {Avatar, AvatarImage } from "./ui/avatar";
 
 const Job = ({ job }) => {
   const navigate = useNavigate();
@@ -30,10 +31,9 @@ const Job = ({ job }) => {
       </div>
 
       <div className="flex items-center gap-2 my-2">
-        <Button className="bg-white">
+        <Button>
           <Avatar>
             <AvatarImage
-              className=" w-8"
               src={job?.company?.logo}
             ></AvatarImage>
           </Avatar>
