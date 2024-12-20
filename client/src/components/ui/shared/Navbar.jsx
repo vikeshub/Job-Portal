@@ -1,9 +1,6 @@
-import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@radix-ui/react-popover";
+import { Avatar, AvatarImage } from "../avatar";
+
+import { Popover, PopoverContent, PopoverTrigger } from '../popover'
 import React from "react";
 import { Button } from "../button";
 import { LogOut, User2 } from "lucide-react";
@@ -85,20 +82,20 @@ const Navbar = () => {
             </div>
           ) : (
             <Popover>
-              <PopoverTrigger>
+              <PopoverTrigger asChild>
                 <Avatar className="cursor-pointer">
                   <AvatarImage
-                    className="rounded-full w-7"
+                    
                     src={user?.profile?.profilePhoto}
                     alt="@shadcn"
                   />
                 </Avatar>
               </PopoverTrigger>
-              <PopoverContent className="w-70 bg-slate-50 p-5 rounded-md">
+              <PopoverContent className="w-80">
                 <div className="flex gap-4 space-y-2">
                   <Avatar className="cursor-pointer">
                     <AvatarImage
-                      className="rounded-full h-7 mt-3"
+                      className="cursor-pointer"
                       src={user?.profile?.profilePhoto}
                       alt="@shadcn"
                     />
